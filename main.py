@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -21,6 +21,7 @@ async def read_root():
 
 @app.get("/users")
 async def users():
+    # raise HTTPException(status_code=201, detail="Usuarios registrados")
     return users_list
 
 
@@ -30,7 +31,8 @@ async def user(id: int):
     try:
         return list(users)[0]
     except:
-        return {"error": "No se ha encontrado el usuario"}
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        # return {"error": "No se ha encontrado el usuario"}
 
 
 @app.get("/userquery/")
