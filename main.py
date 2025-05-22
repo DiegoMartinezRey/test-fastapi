@@ -40,3 +40,18 @@ async def userByQuery(id: int):
         return list(users)[0]
     except:
         return {"error": "No se ha encontrado el usuario"}
+
+
+@app.post("/user")
+async def addUser(user: User):
+    users_list.append(user)
+    return users_list
+
+
+@app.put("/user")
+async def updateUser(user: User):
+    for index, saved_user in enumerate(users_list):
+        if saved_user.id == user.id:
+            users_list[index] = user
+
+    return users_list
