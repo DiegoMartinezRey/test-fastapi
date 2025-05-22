@@ -55,3 +55,12 @@ async def updateUser(user: User):
             users_list[index] = user
 
     return users_list
+
+
+@app.delete("/user/{id}")
+async def deleteUser(id: int):
+    for index, delete_user in enumerate(users_list):
+        if delete_user.id == id:
+            del users_list[index]
+
+    return users_list
